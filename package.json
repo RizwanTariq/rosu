@@ -1,0 +1,23 @@
+{
+  "name": "rosu",
+  "version": "1.0.0",
+  "description": "Movie Rental Backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RizwanTariq/rosu.git"
+  },
+  "author": "Rizwan Tariq",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RizwanTariq/rosu/issues"
+  },
+  "homepage": "https://github.com/RizwanTariq/rosu#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "joi": "^14.3.1"
+  }
+}
