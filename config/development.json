@@ -1,0 +1,4 @@
+{
+  "name": "Rosu - Movie Rental App (development)",
+  "conString": "mongodb://localhost:27017/rosu"
+}
