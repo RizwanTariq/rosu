@@ -1,9 +1,11 @@
 const express = require("express");
+const Transaction = require("mongoose-transactions");
 const { Movie } = require("../models/movie");
 const { Customer } = require("../models/customer");
 const { validate, Rental } = require("../models/rental");
 
 const router = express.Router();
+const transaction = new Transaction();
 
 //Services
 //GET
@@ -38,12 +40,20 @@ router.post("/", async (req, res) => {
     }
   });
 
-  rental = await rental.save();
-
-  movie.numberInStock--;
-  movie.save();
-
-  res.send(rental);
+  try {
+    const rentalId = transaction.insert("Rental", rental);
+    transaction.update(
+      "Movie",
+      movie._id,
+      { $inc: { numberInStock: -1 } },
+      { new: true }
+    );
+    const result = await transaction.run();
+    res.send(result[0]);
+  } catch (error) {
+    console.log(error);
+    transaction.rollback();
+  }
 });
 
 module.exports = router;
