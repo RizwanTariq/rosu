@@ -3,8 +3,8 @@ const Joi = require("joi");
 
 const customerSchema = new mongoose.Schema({
   name: { type: String, required: true, minlength: 4, maxlength: 50 },
-  phone: { type: String, required: true },
-  isGold: { type: Boolean, default: false, minlength: 11, maxlength: 13 }
+  phone: { type: String, required: true, minlength: 11, maxlength: 13 },
+  isGold: { type: Boolean, default: false }
 });
 const Customer = mongoose.model("Customer", customerSchema);
 
