@@ -3,7 +3,13 @@ const Joi = require("joi");
 const { genreSchema } = require("./genre");
 
 const movieSchema = new mongoose.Schema({
-  title: { type: String, required: true, minlength: 2, maxlength: 50 },
+  title: {
+    type: String,
+    required: true,
+    minlength: 2,
+    maxlength: 50,
+    trim: true
+  },
   numberInStock: { type: Number, required: true, min: 0, max: 255 },
   dailyRentalRate: { type: Number, required: true, min: 0, max: 255 },
   genre: {
