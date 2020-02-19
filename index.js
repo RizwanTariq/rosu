@@ -1,3 +1,5 @@
+const Joi = require("joi");
+Joi.objectId = require("joi-objectid")(Joi);
 const mongoose = require("mongoose");
 const config = require("config");
 const express = require("express");
@@ -10,7 +12,8 @@ const app = express();
 mongoose
   .connect(config.get("conString"), {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(() => console.log("mongodb connected..."))
   .catch(err => console.error("mongodb not connected..", err));

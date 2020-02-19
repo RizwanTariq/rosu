@@ -40,6 +40,7 @@ router.post("/", async (req, res) => {
     }
   });
 
+  //Transaction
   try {
     const rentalId = transaction.insert("Rental", rental);
     transaction.update(
