@@ -1,3 +1,4 @@
 {
-  "name": "Rosu - Movie Rental App"
+  "name": "Rosu - Movie Rental App",
+  "jwtPrivateKey": ""
 }
