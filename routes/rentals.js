@@ -1,5 +1,6 @@
 const express = require("express");
 const Transaction = require("mongoose-transactions");
+const auth = require("../middleware/auth");
 const { Movie } = require("../models/movie");
 const { Customer } = require("../models/customer");
 const { validate, Rental } = require("../models/rental");
@@ -15,7 +16,7 @@ router.get("/", async (req, res) => {
   res.send(rentals);
 });
 //POST
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
