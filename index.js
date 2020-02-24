@@ -3,6 +3,7 @@ Joi.objectId = require("joi-objectid")(Joi);
 const mongoose = require("mongoose");
 const config = require("config");
 const express = require("express");
+require("express-async-errors");
 const genres = require("./routes/genres");
 const movies = require("./routes/movies");
 const customers = require("./routes/customers");
