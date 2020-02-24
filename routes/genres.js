@@ -5,12 +5,26 @@ const express = require("express");
 
 const router = express.Router();
 
+//Factory Function returning new function
+function asyncMiddleware(handler) {
+  return async (req, res, next) => {
+    try {
+      await handler(req, res);
+    } catch (ex) {
+      next(ex);
+    }
+  };
+}
+
 //Services
 //GET
-router.get("/", async (req, res) => {
-  const genres = await Genre.find().sort("name");
-  res.send(genres);
-});
+router.get(
+  "/",
+  asyncMiddleware(async (req, res, next) => {
+    const genres = await Genre.find().sort("name");
+    res.send(genres);
+  })
+);
 
 router.get("/:id", async (req, res) => {
   const genre = await Genre.findById(req.params.id);
