@@ -1,20 +1,10 @@
 const { Genre, validate } = require("../models/genre");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
+const asyncMiddleware = require("../middleware/async");
 const express = require("express");
 
 const router = express.Router();
-
-//Factory Function returning new function
-function asyncMiddleware(handler) {
-  return async (req, res, next) => {
-    try {
-      await handler(req, res);
-    } catch (ex) {
-      next(ex);
-    }
-  };
-}
 
 //Services
 //GET
