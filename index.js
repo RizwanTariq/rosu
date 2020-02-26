@@ -16,6 +16,12 @@ const error = require("./middleware/error");
 
 const app = express();
 
+//Handling uncaught exceptions
+process.on("uncaughtException", ex => {
+  console.log("We got an uncaught exception..");
+  winston.error(ex.message, ex);
+});
+
 //Load winston TRANSPORTS
 {
   const { transports, format } = winston;
