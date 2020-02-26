@@ -1,8 +1,9 @@
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
+const winston = require("winston");
+require("winston-mongodb");
 const mongoose = require("mongoose");
 const config = require("config");
-const winston = require("winston");
 const express = require("express");
 require("express-async-errors");
 const genres = require("./routes/genres");
@@ -15,13 +16,30 @@ const error = require("./middleware/error");
 
 const app = express();
 
-winston.add(winston.transports.File, { filename: "logfile.log" });
+//Load winston TRANSPORTS
+{
+  const { transports, format } = winston;
+  winston.add(new transports.File({ filename: "logfile.log" }));
+  winston.add(
+    new transports.MongoDB({
+      db: config.get("conString"),
+      options: { useUnifiedTopology: true }
+    })
+  );
+  winston.add(
+    new transports.Console({
+      format: format.combine(format.timestamp(), format.json())
+    })
+  );
+}
 
+//Validate jwtPrivateKey Environment Variable
 if (!config.get("jwtPrivateKey")) {
   console.error("FATAL ERROR: jwtPrivateKey is not defined..");
   process.exit(1);
 }
 
+//MongoDb Connection
 mongoose
   .connect(config.get("conString"), {
     useNewUrlParser: true,
